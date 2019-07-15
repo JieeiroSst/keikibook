@@ -1,7 +1,8 @@
-package model
+package model //renderHTML.go
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -19,22 +20,25 @@ type Login struct {
 }
 
 func RenderHome(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("/src/templates/home/index.html")
-
+	tpl, err := template.ParseFiles("keikibook/templates/home/index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
 	tpl.Execute(w, nil)
 }
 
 func RenderWall(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("/src/templates/wallPage/index.html")
-
+	tpl, err := template.ParseFiles("keikibook/templates/wallPage/index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
 	tpl.Execute(w, nil)
 }
 
 func RenderLogin(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("/src/templates/Login/index.html")
-	if r.Method != http.MethodPost {
-		tpl.Execute(w, nil)
-		return
+	tpl, err := template.ParseFiles("keikibook/templates/Login/index.html")
+	if err != nil {
+		log.Fatal(err)
 	}
 	details := Login{
 		Email:    r.FormValue("email"),
@@ -45,10 +49,9 @@ func RenderLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func RenderSignUp(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("/src/templates/sign-up/index.html")
-	if r.Method != http.MethodPost {
-		tpl.Execute(w, nil)
-		return
+	tpl, err := template.ParseFiles("keikibook/templates/sign-up/index.html")
+	if err != nil {
+		log.Fatal(err)
 	}
 	details := SignUp{
 		FullName:       r.FormValue("fullname"),
