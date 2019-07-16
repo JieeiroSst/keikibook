@@ -1,9 +1,11 @@
+<html>
+<head>
 
+</head>
 <h6><b><i>keikibook</i></b></h6>
-
 <h1><b>what does a back end developer do</b></h1>
 
-
+<body>
 <h2><b>Include</b></h2>
 <nav>
 	<ul>
@@ -43,3 +45,5 @@
 <li>git and github</li>
 <li>using database as a service platforms</li>
 <li>using server as service platform</li>
+</body>
+</html>
