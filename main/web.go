@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"keikibook/api"
 	"keikibook/model"
 	"log"
 	"net/http"
@@ -22,12 +23,26 @@ func noFound(w http.ResponseWriter, r *http.Request) {
 func main() {
 	port := ":8080"
 	r := mux.NewRouter()
-
+	//render front end
 	r.HandleFunc("/", noFound)
 	r.HandleFunc("/keikibook", model.RenderHome)
 	r.HandleFunc("/keikibook/login", model.RenderLogin)
 	r.HandleFunc("/keikibook/sign-up", model.RenderSignUp)
 	r.HandleFunc("/{id}", model.RenderWall)
+	//api database
+	//sign up
+	r.HandleFunc("/keikibook", api.getSignUps).Methods("GET")
+	r.HandleFunc("/keikibook/{id}", api.getSignUp).Methods("GET")
+	r.HandleFunc("/keikibook", api.createSignUp).Methods("POST")
+	r.HandleFunc("/keikibook/{id}", api.uppdateSignUp).Methods("POST")
+	r.HandleFunc("/keikibook/{id}", api.deleteSignUp).Methods("DELETE")
+
+	//Login
+	r.HandleFunc("/keikibook", api.getLogins).Methods("GET")
+	r.HandleFunc("/keikibook/{id}", api.getLogin).Methods("GET")
+	r.HandleFunc("/keikibook", api.createLogin).Methods("POST")
+	r.HandleFunc("/keikibook/{id}", api.uppdateLogin).Methods("POST")
+	r.HandleFunc("/keikibook/{id}", api.deleteLogin).Methods("DELETE")
 
 	err := http.ListenAndServe(port, r)
 	if err != nil {
