@@ -41,6 +41,7 @@
 <li>gorilla</li>
 <li>revel</li>
 <li>gin</li>
+<li>echo</li>
 <h5><b>Version control</b></h5>
 <li>git and github</li>
 <li>using database as a service platforms</li>
