@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/labstack/echo"
 )
 
 type SignUp struct {
@@ -17,6 +19,22 @@ type SignUp struct {
 type Login struct {
 	Email    string
 	Password string
+}
+
+func handleSignUp(c echo.Context, err error) error {
+	u := new(SignUp)
+	if err = c.Bind(u); err != nil {
+		log.Fatal(err)
+	}
+	return c.JSON(http.StatusOK, u)
+}
+
+func handleLogin(c echo.Context, err error) error {
+	u := new(Login)
+	if err = c.Bind(u); err != nil {
+		log.Fatal(err)
+	}
+	return c.JSON(http.StatusOK, u)
 }
 
 func RenderHome(w http.ResponseWriter, r *http.Request) {
