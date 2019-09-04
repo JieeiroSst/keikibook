@@ -31,18 +31,18 @@ func main() {
 	r.HandleFunc("/{id}", model.RenderWall)
 	//api database
 	//sign up
-	r.HandleFunc("/keikibook", api.getSignUps).Methods("GET")
-	r.HandleFunc("/keikibook/{id}", api.getSignUp).Methods("GET")
-	r.HandleFunc("/keikibook", api.createSignUp).Methods("POST")
-	r.HandleFunc("/keikibook/{id}", api.uppdateSignUp).Methods("POST")
-	r.HandleFunc("/keikibook/{id}", api.deleteSignUp).Methods("DELETE")
+	r.HandleFunc("/keikibook/sign-up", api.getSignUps).Methods("GET")
+	r.HandleFunc("/keikibook/sign-up", api.createSignUp).Methods("POST"
+	r.HandleFunc("/keikibook/sign-up/{id}", api.getSignUp).Methods("GET")
+	r.HandleFunc("/keikibook/sign-up/{id}", api.uppdateSignUp).Methods("PUT")
+	r.HandleFunc("/keikibook/sign-up/{id}", api.deleteSignUp).Methods("DELETE")
 
 	//Login
-	r.HandleFunc("/keikibook", api.getLogins).Methods("GET")
-	r.HandleFunc("/keikibook/{id}", api.getLogin).Methods("GET")
-	r.HandleFunc("/keikibook", api.createLogin).Methods("POST")
-	r.HandleFunc("/keikibook/{id}", api.uppdateLogin).Methods("POST")
-	r.HandleFunc("/keikibook/{id}", api.deleteLogin).Methods("DELETE")
+	r.HandleFunc("/keikibook/login", api.getLogins).Methods("GET")
+	r.HandleFunc("/keikibook/login", api.createLogin).Methods("POST")
+	r.HandleFunc("/keikibook/login/{id}", api.getLogin).Methods("GET")
+	r.HandleFunc("/keikibook/login/{id}", api.uppdateLogin).Methods("PUT")
+	r.HandleFunc("/keikibook/login/{id}", api.deleteLogin).Methods("DELETE")
 
 	err := http.ListenAndServe(port, r)
 	if err != nil {
