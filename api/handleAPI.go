@@ -3,6 +3,7 @@ package api
 import (
 	"database/sql"
 	"encoding/json"
+	"keikibook/account"
 	"log"
 	"net/http"
 	"strconv"
@@ -10,30 +11,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
-//struct asign up
-type SignUp struct {
-	ID             string
-	FullName       string
-	Email          string
-	UserName       string
-	Password       string
-	RepeatPassword string
-}
-
-//login struct
-type Login struct {
-	ID       string
-	Email    string
-	Password string
-}
-
 var db *sql.DB
 
 //array sign up
-var SignUps []SignUp
+var SignUps []account.SignUp
 
 //array login
-var Logins []Login
+var Logins []account.Login
 
 //SignUp
 //index
@@ -46,7 +30,7 @@ func getSignUps(w http.ResponseWriter, r *http.Request) {
 
 	defer result.Close()
 	for result.Next() {
-		var signUp SignUp
+		var signUp account.SignUp
 		err := result.Scan(&signUp.ID, &signUp.FullName, &signUp.Email, &signUp.Password, &signUp.RepeatPassword, &signUp.UserName)
 		if err != nil {
 			log.Fatal(err)
@@ -66,7 +50,7 @@ func getSignUp(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	defer result.Close()
-	var signUp SignUp
+	var signUp account.SignUp
 	for result.Next() {
 		err := result.Scan(&signUp.ID, &signUp.FullName, &signUp.Email, &signUp.Password, &signUp.RepeatPassword, &signUp.UserName)
 		if err != nil {
@@ -85,7 +69,7 @@ func getSignUp(w http.ResponseWriter, r *http.Request) {
 //create
 func createSignUp(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var newSignUp SignUp
+	var newSignUp account.SignUp
 	json.NewDecoder(r.Body).Decode(&newSignUp)
 	newSignUp.ID = strconv.Itoa(len(SignUps) + 1)
 	SignUps = append(SignUps, newSignUp)
@@ -99,7 +83,7 @@ func uppdateSignUp(w http.ResponseWriter, r *http.Request) {
 	for i, item := range SignUps {
 		if item.ID == params["id"] {
 			SignUps = append(SignUps[:i], SignUps[i+1])
-			var newSignUp SignUp
+			var newSignUp account.SignUp
 			json.NewDecoder(r.Body).Decode(&newSignUp)
 			newSignUp.ID = params["id"]
 			SignUps = append(SignUps, newSignUp)
@@ -144,7 +128,7 @@ func getLogin(w http.ResponseWriter, r *http.Request) {
 //create
 func createLogin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var newLogin Login
+	var newLogin account.Login
 	json.NewDecoder(r.Body).Decode(&newLogin)
 	newLogin.ID = strconv.Itoa(len(Logins) + 1)
 	Logins = append(Logins, newLogin)
@@ -158,7 +142,7 @@ func uppdateLogin(w http.ResponseWriter, r *http.Request) {
 	for i, item := range Logins {
 		if item.ID == params["id"] {
 			Logins = append(Logins[:i], Logins[i+1])
-			var newLogin Login
+			var newLogin account.Login
 			json.NewDecoder(r.Body).Decode(&newLogin)
 			newLogin.ID = params["id"]
 			Logins = append(Logins, newLogin)
