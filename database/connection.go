@@ -12,7 +12,7 @@ func handleDataBase() {
 	fmt.Println("Database")
 
 	//open databse mysql
-	db, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/keikibook")
+	db, err := sql.Open("mysql", "root: @tcp(127.0.0.1:3306)/keikibook")
 	if err != nil {
 		log.Fatal(err)
 	}
