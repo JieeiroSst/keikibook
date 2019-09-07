@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"keikibook/api"
 	"keikibook/model"
+	"keikibook/restapi"
 	"log"
 	"net/http"
 
@@ -31,20 +31,21 @@ func main() {
 	r.HandleFunc("/{id}", model.RenderWall)
 	//api database
 	//sign up
-	r.HandleFunc("/keikibook/sign-up", api.getSignUps).Methods("GET")
-	r.HandleFunc("/keikibook/sign-up", api.createSignUp).Methods("POST"
-	r.HandleFunc("/keikibook/sign-up/{id}", api.getSignUp).Methods("GET")
-	r.HandleFunc("/keikibook/sign-up/{id}", api.uppdateSignUp).Methods("PUT")
-	r.HandleFunc("/keikibook/sign-up/{id}", api.deleteSignUp).Methods("DELETE")
+	r.HandleFunc("/keikibook/sign-up", restapi.GetSignUps).Methods("GET")
+	r.HandleFunc("/keikibook/sign-up", restapi.CreateSignUp).Methods("POST")
+	r.HandleFunc("/keikibook/sign-up/{id}", restapi.GetSignUp).Methods("GET")
+	r.HandleFunc("/keikibook/sign-up/{id}", restapi.UppdateSignUp).Methods("PUT")
+	r.HandleFunc("/keikibook/sign-up/{id}", restapi.DeleteSignUp).Methods("DELETE")
 
 	//Login
-	r.HandleFunc("/keikibook/login", api.getLogins).Methods("GET")
-	r.HandleFunc("/keikibook/login", api.createLogin).Methods("POST")
-	r.HandleFunc("/keikibook/login/{id}", api.getLogin).Methods("GET")
-	r.HandleFunc("/keikibook/login/{id}", api.uppdateLogin).Methods("PUT")
-	r.HandleFunc("/keikibook/login/{id}", api.deleteLogin).Methods("DELETE")
+	r.HandleFunc("/keikibook/login", restapi.GetLogins).Methods("GET")
+	r.HandleFunc("/keikibook/login", restapi.CreateLogin).Methods("POST")
+	r.HandleFunc("/keikibook/login/{id}", restapi.GetLogin).Methods("GET")
+	r.HandleFunc("/keikibook/login/{id}", restapi.UpdateLogin).Methods("PUT")
+	r.HandleFunc("/keikibook/login/{id}", restapi.DeleteLogin).Methods("DELETE")
 
 	err := http.ListenAndServe(port, r)
+
 	if err != nil {
 		log.Fatal(err)
 	}
