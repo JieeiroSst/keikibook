@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"keikibook/model"
 	"keikibook/restapi"
+	"keikibook/savejson"
 	"log"
 	"net/http"
 
@@ -28,8 +29,11 @@ func main() {
 	r.HandleFunc("/keikibook", model.RenderHome)
 	r.HandleFunc("/keikibook/login", model.RenderLogin)
 	r.HandleFunc("/keikibook/sign-up", model.RenderSignUp)
-	r.HandleFunc("/{id}", model.RenderWall)
+	r.HandleFunc("/keikibook/{id}", model.RenderWall)
 	//api database
+	//save json database
+	r.HandleFunc("/", savejson.ReadJsonSignUp)
+	r.HandleFunc("/", savejson.ReadJsonLogin)
 	//sign up
 	r.HandleFunc("/keikibook/sign-up", restapi.GetSignUps).Methods("GET")
 	r.HandleFunc("/keikibook/sign-up", restapi.CreateSignUp).Methods("POST")
