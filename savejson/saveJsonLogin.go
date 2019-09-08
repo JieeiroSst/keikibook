@@ -17,5 +17,5 @@ func ReadJsonLogin(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_ = ioutil.WriteFile("keikibook/restapi/SignUp/Login.json", file, 0644)
+	_ = ioutil.WriteFile("keikibook/restapi/Login.json", file, 0644)
 }
